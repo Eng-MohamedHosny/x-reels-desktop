@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>X Reels</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+ <header class="head">
+  <img src="../icons/icon48.png" width="24" height="24" alt="">
+  <span class="name">X Reels</span>
+  <span class="ver" id="ver"></span>
+  <button type="button" class="kbtn" id="kbtn" aria-label="Keyboard shortcuts" aria-pressed="false">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.01M10 10h.01M13.5 10h.01M17 10h.01M7.5 14h9"/></svg>
+  </button>
+ </header>
+
+ <main id="main">
+  <!-- one glowing orb is the switch -->
+  <section class="aur">
+   <button type="button" class="orb" id="orb" aria-label="Watch Reels">
+    <svg class="play" width="34" height="34" viewBox="0 0 34 34"><path d="M11 7 L28 17 L11 27 Z" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>
+    <svg class="stop" width="30" height="30" viewBox="0 0 30 30"><path d="M8 8 L22 22 M22 8 L8 22" stroke="#e9f1ff" stroke-width="3.5" stroke-linecap="round"/></svg>
+   </button>
+   <div class="label" id="label">Watch Reels</div>
+  </section>
+  <div class="status"><span class="dot"></span><span id="status">Off in this tab</span></div>
+ </main>
+
+ <section id="keys" class="sc" hidden>
+  <div class="sc-title">Keyboard</div>
+  <div class="sc-grid">
+   <div class="cluster"><kbd class="k ghost"></kbd><kbd class="k">↑</kbd><kbd class="k ghost"></kbd><kbd class="k">←</kbd><kbd class="k">↓</kbd><kbd class="k">→</kbd></div>
+   <ul class="legend"><li><b>↑ ↓</b>Previous / next reel</li><li><b>← →</b>Back / forward 5 s</li><li><b>Wheel</b>Swipe with the mouse</li></ul>
+  </div>
+  <div class="sc-row"><div><kbd class="k space">Space</kbd><span>Pause</span></div><div><kbd class="k">M</kbd><span>Mute</span></div><div><kbd class="k">Esc</kbd><span>Close</span></div></div>
+  <button type="button" class="back" id="done">Done</button>
+ </section>
+ <script src="popup.js"></script>
+</body></html>

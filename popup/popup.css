@@ -1,0 +1,75 @@
+/* X Reels popup: "Aurora" (navy, glowing orb switch) with "Carbon" metal keycaps. */
+*{box-sizing:border-box}
+html,body{margin:0}
+body{width:320px;padding:18px;font:13px/1.45 "Segoe UI",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;display:grid;gap:16px;user-select:none}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid #1d9bf0;outline-offset:3px}
+[hidden]{display:none!important}
+
+.head{display:flex;align-items:center;gap:10px}
+.head img{border-radius:6px;display:block}
+.name{font-weight:700;font-size:15px;letter-spacing:-.01em}
+.ver{margin-left:auto;font-size:11px;opacity:.55;font-variant-numeric:tabular-nums}
+/* keyboard button: a Carbon metal keycap */
+.kbtn{width:32px;height:30px;border-radius:8px;display:grid;place-items:center;padding:0;color:#f1f4f8;
+  background:linear-gradient(180deg,#3a3f47,#24272d);border:1px solid #4a5059;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 2px 4px rgba(0,0,0,.5);transition:filter .15s ease,transform .1s ease}
+.kbtn:hover{filter:brightness(1.15)}
+.kbtn:active{transform:translateY(1px)}
+/* active (shortcuts open): backlit glow under the metal key, symbol lit blue */
+.kbtn[aria-pressed="true"]{color:#bfe3ff;border-color:#1d9bf0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 2px 0 #0b3d91,0 0 0 3px rgba(29,155,240,.18),0 0 16px rgba(29,155,240,.65)}
+
+main{display:grid;gap:14px}
+.status{display:flex;align-items:center;gap:8px;font-size:12.5px}
+.dot{width:8px;height:8px;border-radius:50%}
+body.disabled .orb{opacity:.4;pointer-events:none}
+
+/* shortcuts screen */
+.sc{display:grid;gap:14px}
+.sc-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.sc-grid{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.cluster{display:grid;grid-template-columns:repeat(3,30px);grid-auto-rows:30px;gap:4px}
+.k{display:grid;place-items:center;min-width:30px;height:30px;padding:0 8px;font-family:inherit;font-weight:600;font-size:13px;line-height:1;border-radius:7px}
+.k.ghost{visibility:hidden}
+.k.space{min-width:96px}
+.legend{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:12px;opacity:.85}
+.legend b{display:inline-block;min-width:44px}
+.sc-row{display:grid;grid-template-columns:auto auto auto;justify-content:space-between;gap:8px}
+.sc-row div{display:flex;flex-direction:column;align-items:center;gap:5px}
+.sc-row span{opacity:.8;font-size:11px}
+.back{height:36px;border-radius:999px;font-size:13px;font-weight:600;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:inherit}
+
+
+/* ---------- Aurora ---------- */
+body{color:#e9f1ff;background:radial-gradient(260px 180px at 50% 0%,rgba(29,155,240,.35),transparent 70%),linear-gradient(180deg,#071226,#03060d)}
+body main{justify-items:center;text-align:center}
+.aur{display:grid;justify-items:center;gap:12px;padding-top:4px}
+.orb{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;border:0;padding:0;
+  background:radial-gradient(circle at 35% 30%,#7cc8ff 0%,#1d9bf0 35%,#0b3d91 75%,#061a3d 100%);
+  box-shadow:0 0 0 6px rgba(29,155,240,.12),0 0 0 14px rgba(29,155,240,.06),0 18px 40px -8px rgba(29,155,240,.8),inset 0 2px 6px rgba(255,255,255,.35);transition:transform .15s ease,filter .15s ease}
+.orb:hover{filter:brightness(1.08)} .orb:active{transform:scale(.97)}
+.orb .stop{display:none}
+body.on .orb{background:radial-gradient(circle at 35% 30%,#3a3f4a,#1a1d24 70%);box-shadow:0 0 0 6px rgba(255,255,255,.05),inset 0 2px 6px rgba(255,255,255,.12)}
+body.on .orb .play{display:none} body.on .orb .stop{display:block}
+.label{font-weight:700;font-size:15px}
+body .status{color:#8ea3c4;justify-content:center}
+body .dot{background:#3c4660} body.on .dot{background:#5cc1ff;box-shadow:0 0 8px #5cc1ff}
+
+/* Carbon metal keycaps */
+.k{background:linear-gradient(180deg,#3a3f47,#24272d);border:1px solid #4a5059;color:#f1f4f8;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 2px 4px rgba(0,0,0,.5)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---------- button wave (plays when the orb is pressed) ---------- */
+html{overflow:hidden}
+.fx-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:5;contain:strict}
+#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.wv{position:absolute;width:var(--d);height:var(--d);margin:calc(var(--d) / -2) 0 0 calc(var(--d) / -2);border-radius:50%;pointer-events:none;z-index:4;
+  border:2px solid rgba(220,240,255,.9);
+  box-shadow:-3px 0 0 -1px rgba(255,40,110,.8),3px 0 0 -1px rgba(0,230,255,.85),0 0 22px 3px rgba(29,155,240,.75),inset 0 0 22px 3px rgba(29,155,240,.45)}
+.edge-glow{position:absolute;inset:0;pointer-events:none;z-index:6;border-radius:inherit;
+  box-shadow:inset 0 0 40px 6px rgba(29,155,240,.7),inset 0 0 6px 1px rgba(120,200,255,.9);opacity:0}
+body.fx main .label,body.fx .status{animation:wob .6s cubic-bezier(.3,0,.2,1)}
+@keyframes wob{0%{filter:none;transform:none}25%{filter:blur(1.2px) drop-shadow(2px 0 rgba(255,40,110,.7)) drop-shadow(-2px 0 rgba(0,230,255,.7));transform:skewX(-6deg) scaleY(1.06)}
+  60%{filter:drop-shadow(1px 0 rgba(255,40,110,.4)) drop-shadow(-1px 0 rgba(0,230,255,.4));transform:skewX(3deg)}100%{filter:none;transform:none}}

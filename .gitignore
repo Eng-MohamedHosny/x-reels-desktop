@@ -1,0 +1,4 @@
+.agent/
+.freebuff/
+node_modules/
+*.zip
