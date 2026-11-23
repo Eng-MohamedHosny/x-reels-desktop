@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://eng-mohamedhosny.github.io/x-reels-desktop/"><img src="docs/images/website-badge.svg" alt="Visit the Live Website" height="58"></a>
+  <a href="https://x-reels-desktop.pages.dev/"><img src="docs/images/website-badge.svg" alt="Visit the Live Website" height="58"></a>
 </p>
 
 <p align="center">
@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <a href="https://eng-mohamedhosny.github.io/x-reels-desktop/"><b>🌐 Website</b></a> &nbsp;·&nbsp;
+  <a href="https://x-reels-desktop.pages.dev/"><b>🌐 Website</b></a> &nbsp;·&nbsp;
   <a href="../../releases/latest"><b>⬇️ Download free</b></a> &nbsp;·&nbsp;
   <a href="#see-it-in-action"><b>▶️ Watch the launch film</b></a> &nbsp;·&nbsp;
   <a href="#install"><b>Install in 1 minute</b></a>
