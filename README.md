@@ -12,6 +12,10 @@
 </p>
 
 <p align="center">
+  <a href="https://eng-mohamedhosny.github.io/x-reels-desktop/"><img src="docs/images/website-badge.svg" alt="Visit the Live Website" height="58"></a>
+</p>
+
+<p align="center">
   <a href="../../releases/latest"><img alt="Download" src="https://img.shields.io/github/v/release/Eng-MohamedHosny/x-reels-desktop?style=for-the-badge&color=FFD200&labelColor=0B0B0B&label=download"></a>
   <img alt="Chrome, Edge and Brave" src="https://img.shields.io/badge/Chrome%20%C2%B7%20Edge%20%C2%B7%20Brave-supported-0B0B0B?style=for-the-badge&logoColor=FFD200">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-0B0B0B?style=for-the-badge">

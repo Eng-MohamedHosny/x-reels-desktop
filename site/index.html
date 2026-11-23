@@ -62,7 +62,7 @@ a{color:inherit;text-decoration:none}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--ink-2);letter-spacing:-.01em}
 .eyebrow img{width:34px;height:34px;border-radius:9px;box-shadow:0 4px 12px rgba(0,0,0,.18)}
 h1{margin:22px auto 0;font-size:clamp(42px,7.4vw,100px);line-height:1.03;letter-spacing:-.045em;font-weight:700}
-h1 .grad{background:linear-gradient(92deg,#1d1d1f 10%,#1d9bf0 55%,#0071e3 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 .grad{background:linear-gradient(92deg,#0f63a8 0%,#1d9bf0 46%,#0071e3 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .lede{margin:22px auto 0;max-width:640px;font-size:clamp(19px,2.2vw,24px);line-height:1.33;color:var(--ink-2);letter-spacing:-.018em;font-weight:400}
 .cta-row{margin-top:36px;display:flex;justify-content:center;align-items:center;gap:26px;flex-wrap:wrap}
 .meta{margin-top:18px;font-size:13px;color:var(--ink-3);letter-spacing:-.005em}
@@ -160,35 +160,50 @@ h2 .mute{color:var(--ink-3)}
 .t-dark{background:#000;color:#fff}.t-dark p{color:var(--night-ink-2)}
 
 /* keycaps: Carbon metal, same as the extension's shortcuts screen */
-.keys{margin-top:auto;padding-top:34px;display:flex;gap:30px;align-items:flex-end;flex-wrap:wrap}
-.kgrid{display:grid;grid-template-columns:repeat(3,56px);grid-auto-rows:56px;gap:6px}
+.keys{margin-top:auto;padding-top:28px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:nowrap}
+.kdeck{display:flex;align-items:flex-end;gap:14px;flex-shrink:0}
+.kgrid{display:grid;grid-template-columns:repeat(3,50px);grid-auto-rows:50px;gap:6px}
 .kgrid .up{grid-column:2}
 .krow{display:flex;gap:6px}
-.kc{display:grid;place-items:center;width:56px;height:56px;padding:0 14px;border-radius:11px;font:600 16px/1 var(--font);letter-spacing:0;color:#f1f4f8;
+.kc{display:grid;place-items:center;width:50px;height:50px;padding:0 12px;border-radius:11px;font:600 15px/1 var(--font);letter-spacing:0;color:#f1f4f8;cursor:pointer;user-select:none;
   background:linear-gradient(180deg,#3a3f47,#24272d);border:1px solid #4a5059;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 2px 4px rgba(0,0,0,.5);
-  transition:transform .12s var(--ease),box-shadow .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease)}
-.kc svg{width:20px;height:20px;display:block}
-.kc.space{width:auto;min-width:174px}
-.kc.esc{width:auto;min-width:112px}
+  transition:transform .12s var(--ease),box-shadow .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease),filter .15s var(--ease)}
+.kc:hover{filter:brightness(1.14)}
+.kc svg{width:19px;height:19px;display:block}
+.kc.space{width:auto;min-width:154px}
+.kc.esc{width:auto;min-width:98px}
 .kc.on{transform:translateY(1px);color:#bfe3ff;border-color:#1d9bf0;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 2px 0 #0b3d91,0 0 0 3px rgba(29,155,240,.18),0 0 16px rgba(29,155,240,.65)}
-.legend{display:grid;gap:9px;font-size:15px;color:var(--night-ink-2)}
-.legend b{color:#f5f5f7;font-weight:600;display:inline-block;min-width:66px}
+.legend{flex:1;min-width:210px;display:grid;gap:10px;font-size:14.5px;color:var(--night-ink-2);padding-left:24px;border-left:1px solid rgba(255,255,255,.1)}
+.legend>span{display:flex;align-items:center;gap:12px;white-space:nowrap;transition:color .2s var(--ease)}
+.legend>span.hi{color:#ffffff}
+.legend>span.hi b{color:#5cc1ff}
+.legend b{color:#f5f5f7;font-weight:600;display:inline-flex;align-items:center;gap:5px;min-width:52px;flex-shrink:0;transition:color .2s var(--ease)}
+.legend b svg{width:15px;height:15px;display:block;flex-shrink:0}
 
 /* wave tile */
-.wave{position:relative;margin-top:auto;height:170px;display:grid;place-items:center}
-.wave i{position:absolute;width:60px;height:60px;border-radius:50%;border:2px solid rgba(160,215,255,.9);
+.wave{position:relative;flex:1;min-height:176px;margin-top:18px;display:grid;place-items:center}
+.wave i{position:absolute;width:62px;height:62px;border-radius:50%;border:2px solid rgba(160,215,255,.9);pointer-events:none;
   box-shadow:-3px 0 0 -1px rgba(255,40,110,.7),3px 0 0 -1px rgba(0,230,255,.8),0 0 22px rgba(29,155,240,.7);animation:ring 2.6s var(--ease-out) infinite;opacity:0}
 .wave i:nth-child(2){animation-delay:.25s}.wave i:nth-child(3){animation-delay:.5s}
-.orb{width:74px;height:74px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#7cc8ff,#1d9bf0 40%,#0b3d91 80%);box-shadow:0 14px 40px -6px rgba(29,155,240,.8),inset 0 2px 6px rgba(255,255,255,.4);display:grid;place-items:center;position:relative;z-index:2}
-.orb svg{width:24px;margin-left:4px}
-@keyframes ring{0%{transform:scale(.6);opacity:0}15%{opacity:1}100%{transform:scale(4.2);opacity:0}}
+.wave.off i{animation:none;opacity:0}
+.orb{width:78px;height:78px;border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 35% 30%,#7cc8ff,#1d9bf0 40%,#0b3d91 80%);box-shadow:0 14px 40px -6px rgba(29,155,240,.8),inset 0 2px 6px rgba(255,255,255,.4);display:grid;place-items:center;position:relative;z-index:2;
+  transition:transform .16s var(--ease),filter .16s var(--ease),box-shadow .28s var(--ease),background .28s var(--ease)}
+.orb:hover{filter:brightness(1.08);transform:scale(1.04)}
+.orb:active{transform:scale(.93)}
+.orb .ico-play{width:25px;margin-left:4px}
+.orb .ico-stop{width:24px;display:none}
+.orb.active{background:radial-gradient(circle at 35% 30%,#3a3f4a,#1a1d24 72%);box-shadow:0 14px 32px -8px rgba(0,0,0,.45),0 0 0 5px rgba(0,0,0,.06),inset 0 2px 6px rgba(255,255,255,.14)}
+.orb.active .ico-play{display:none}
+.orb.active .ico-stop{display:block}
+@keyframes ring{0%{transform:scale(.6);opacity:0}15%{opacity:1}100%{transform:scale(3.35);opacity:0}}
 
 /* tabs tile: a real looking browser window */
 .bw{margin-top:auto;container-type:inline-size;border-radius:12px;overflow:hidden;border:1px solid #d2d2d7;box-shadow:0 24px 50px -24px rgba(0,0,0,.35);background:#fff;margin-top:28px}
 .bw .tabbar{display:flex;align-items:flex-end;gap:2px;height:38px;padding:0 10px;background:#dee1e6}
 .bw .lights{display:flex;gap:6px;align-self:center;margin-right:8px}
 .bw .lights i{width:10px;height:10px;border-radius:50%;background:#ff5f57}.bw .lights i:nth-child(2){background:#febc2e}.bw .lights i:nth-child(3){background:#28c840}
-.btab{position:relative;flex:1;min-width:0;display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:9px 9px 0 0;font-size:12px;color:#5f6368;white-space:nowrap;overflow:hidden;transition:background .3s var(--ease),color .3s var(--ease)}
+.btab{position:relative;flex:1;min-width:0;display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:9px 9px 0 0;font-size:12px;color:#5f6368;white-space:nowrap;overflow:hidden;cursor:pointer;user-select:none;transition:background .25s var(--ease),color .25s var(--ease)}
+.btab:not(.act):hover{background:rgba(255,255,255,.48);color:#202124}
 .btab.act{background:#fff;color:#202124}
 .btab .xf{flex:none;width:14px;height:14px;border-radius:3px;background:#000;display:grid;place-items:center}
 .btab .xf svg{width:9px;height:9px}
@@ -230,8 +245,15 @@ h2 .mute{color:var(--ink-3)}
 .bw.is-reels ~ .tabnote .dot2{background:#1d9bf0;box-shadow:0 0 8px #1d9bf0}
 
 /* privacy tile */
-.shield{margin-top:auto;padding-top:24px;display:flex;gap:14px;flex-wrap:wrap}
-.chip{font-size:14px;font-weight:500;padding:9px 14px;border-radius:980px;background:#1c1c1e;color:#f5f5f7;border:1px solid #2c2c2e}
+.shield{margin-top:28px;flex:1;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-content:stretch}
+.pcard{display:flex;flex-direction:column;justify-content:space-between;gap:12px;padding:18px 20px;border-radius:18px;
+  background:linear-gradient(180deg,#18191c,#111214);border:1px solid rgba(255,255,255,.085);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.pcard .pico{width:34px;height:34px;border-radius:10px;background:rgba(29,155,240,.13);border:1px solid rgba(29,155,240,.24);
+  color:#5cc1ff;display:grid;place-items:center}
+.pcard .pico svg{width:17px;height:17px}
+.pcard b{display:block;font-size:15.5px;font-weight:600;color:#f5f5f7;letter-spacing:-.015em}
+.pcard span{display:block;margin-top:3px;font-size:13px;line-height:1.35;color:var(--night-ink-2)}
 
 /* browsers */
 .browsers{margin-top:64px;display:flex;justify-content:center;gap:clamp(28px,7vw,96px);flex-wrap:wrap}
@@ -249,6 +271,13 @@ h2 .mute{color:var(--ink-3)}
 .step h3{margin:0;font-size:22px;letter-spacing:-.025em;line-height:1.2}
 .step p{margin:10px 0 0;color:var(--ink-2);font-size:16px}
 code{font:500 14px ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:#e8e8ed;padding:2px 7px;border-radius:7px;color:var(--ink);letter-spacing:0}
+.copy-url{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(0,0,0,.06);cursor:pointer;vertical-align:baseline;font:500 13.5px ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:#e8e8ed;padding:2px 8px;border-radius:7px;color:var(--ink);letter-spacing:0;transition:background .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease),transform .1s var(--ease)}
+.copy-url:hover{background:#dcdce3;border-color:rgba(0,113,227,.3)}
+.copy-url:active{transform:scale(.97)}
+.copy-url svg{width:12px;height:12px;opacity:.55;flex-shrink:0;transition:opacity .15s var(--ease)}
+.copy-url:hover svg{opacity:.9}
+.copy-url.copied{background:#e7f6ec;color:#1a7f37;border-color:rgba(26,127,55,.28)}
+.copy-url.copied svg{opacity:1}
 
 /* big cta */
 .final{padding:160px 0;text-align:center}
@@ -289,13 +318,15 @@ footer a:hover{color:var(--ink);text-decoration:underline}
   .desk{margin-top:56px}.monitor{padding:6px;border-radius:12px}.scr{border-radius:7px}.stand{height:24px}
   .bento{grid-template-columns:1fr}.t-wide,.t-narrow,.t-half{grid-column:auto}
   .tile{padding:32px 26px;min-height:0}
+  .keys{flex-wrap:wrap;gap:24px}.legend{padding-left:0;border-left:0}
   .steps{grid-template-columns:1fr}
   .card{flex-direction:column;text-align:center;gap:28px}.card p{margin-inline:auto}.socials{justify-content:center}
   .frame{border-radius:18px}
   .final{padding:110px 0}
 }
 @media (max-width:480px){
-  .kgrid{grid-template-columns:repeat(3,48px);grid-auto-rows:48px}.kc{width:48px;height:48px}.kc.space{min-width:150px}.kc.esc{min-width:96px}
+  .kgrid{grid-template-columns:repeat(3,44px);grid-auto-rows:44px}.kc{width:44px;height:44px}.kc.space{min-width:136px}.kc.esc{min-width:86px}
+  .shield{grid-template-columns:1fr}
   .bpage{height:180px}.tl{grid-template-columns:40px 1fr}.tl .side2{display:none}
   .play{padding:14px}.play>span{display:none}
   .pill{font-size:14px;padding:8px 14px 8px 8px}
@@ -432,32 +463,34 @@ footer a:hover{color:var(--ink);text-decoration:underline}
           <h3>Your keyboard is the remote.</h3>
           <p>Scroll with the mouse wheel, or use the keys. Every control is one press away.</p>
           <div class="keys" id="keys">
-            <div style="display:grid;gap:6px" aria-hidden="true">
-              <div class="kgrid"><span class="kc up" data-k="ArrowUp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(0deg)"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span></div>
-              <div class="krow"><span class="kc" data-k="ArrowLeft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-90deg)"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span><span class="kc" data-k="ArrowDown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span><span class="kc" data-k="ArrowRight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(90deg)"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span></div>
-            </div>
-            <div style="display:grid;gap:6px" aria-hidden="true">
-              <span class="kc space" data-k=" ">Space</span>
-              <div class="krow"><span class="kc" data-k="m">M</span><span class="kc esc" data-k="Escape">Esc</span></div>
+            <div class="kdeck">
+              <div style="display:grid;gap:6px">
+                <div class="kgrid"><span class="kc up" data-k="ArrowUp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(0deg)"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span></div>
+                <div class="krow"><span class="kc" data-k="ArrowLeft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-90deg)"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span><span class="kc" data-k="ArrowDown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span><span class="kc" data-k="ArrowRight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(90deg)"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span></div>
+              </div>
+              <div style="display:grid;gap:6px">
+                <span class="kc space" data-k=" ">Space</span>
+                <div class="krow"><span class="kc" data-k="m">M</span><span class="kc esc" data-k="Escape">Esc</span></div>
+              </div>
             </div>
             <div class="legend">
-              <span><b>↑ ↓</b>Previous / next video</span>
-              <span><b>← →</b>Back / forward 5 seconds</span>
-              <span><b>Space</b>Play / pause</span>
-              <span><b>M</b>Mute</span>
-              <span><b>Esc</b>Close the video</span>
+              <span data-lg="ArrowUp ArrowDown"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></b>Previous / next video</span>
+              <span data-lg="ArrowLeft ArrowRight"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-90deg)" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(90deg)" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></b>Back / forward 5 seconds</span>
+              <span data-lg=" "><b>Space</b>Play / pause</span>
+              <span data-lg="m"><b>M</b>Mute</span>
+              <span data-lg="Escape"><b>Esc</b>Close the video</span>
             </div>
           </div>
         </article>
         <article class="tile t-narrow rv d1">
           <h3>One glowing switch.</h3>
           <p>Press it and a soft blue wave turns your tab into Reels.</p>
-          <div class="wave" aria-hidden="true"><i></i><i></i><i></i><div class="orb"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z" fill="#fff"/></svg></div></div>
+          <div class="wave" id="waveBox"><i></i><i></i><i></i><button type="button" class="orb" id="orbBtn" aria-label="Try the Reels switch" aria-pressed="false"><svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l16 9-16 9z" fill="#fff"/></svg><svg class="ico-stop" viewBox="0 0 30 30" aria-hidden="true"><path d="M8 8 L22 22 M22 8 L8 22" stroke="#e9f1ff" stroke-width="3.5" stroke-linecap="round"/></svg></button></div>
         </article>
         <article class="tile t-half rv">
           <h3>Only the tab you choose.</h3>
           <p>Reels turns on in one tab. Your other X tabs stay exactly as they are.</p>
-          <div class="bw" id="bw" aria-hidden="true">
+          <div class="bw" id="bw">
             <div class="tabbar"><div class="lights"><i></i><i></i><i></i></div>
               <div class="btab act" data-t="0"><span class="xf"><svg viewBox="0 0 24 24"><path fill="#fff" d="M18.2 2.3h3.4l-7.4 8.4 8.7 11.5h-6.8l-5.3-7-6.1 7H1.3l7.9-9L.8 2.3h7l4.8 6.3 5.6-6.3zm-1.2 17.9h1.9L7 4.2H5z"/></svg></span>Home / X</div>
               <div class="btab reels" data-t="1"><span class="xf"><svg viewBox="0 0 24 24"><path fill="#fff" d="M18.2 2.3h3.4l-7.4 8.4 8.7 11.5h-6.8l-5.3-7-6.1 7H1.3l7.9-9L.8 2.3h7l4.8 6.3 5.6-6.3zm-1.2 17.9h1.9L7 4.2H5z"/></svg></span>Video / X<span class="rd">Reels</span></div>
@@ -483,7 +516,24 @@ footer a:hover{color:var(--ink);text-decoration:underline}
         <article class="tile t-half t-dark rv d1">
           <h3>Private by design.</h3>
           <p>No server, no account, no tracking. Everything stays in your browser.</p>
-          <div class="shield"><span class="chip">No account</span><span class="chip">No tracking</span><span class="chip">No debugger banner</span><span class="chip">Open source</span></div>
+          <div class="shield">
+            <div class="pcard">
+              <div class="pico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></div>
+              <div><b>No account</b><span>Works right away, zero sign-in</span></div>
+            </div>
+            <div class="pcard">
+              <div class="pico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z"/><path d="M9.5 12.2l1.8 1.8 3.6-3.8"/></svg></div>
+              <div><b>No tracking</b><span>Nothing leaves your browser</span></div>
+            </div>
+            <div class="pcard">
+              <div class="pico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M9 14l2 2 4-4"/></svg></div>
+              <div><b>No debugger banner</b><span>Clean native tab rules only</span></div>
+            </div>
+            <div class="pcard">
+              <div class="pico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg></div>
+              <div><b>Open source</b><span>48 KB · MIT license · GitHub</span></div>
+            </div>
+          </div>
         </article>
       </div>
     </div>
@@ -509,7 +559,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
       </div>
       <div class="steps">
         <div class="step rv"><h3>Download and unzip</h3><p>Get <b>x-reels-desktop-1.0.0.zip</b> and unzip it into a folder you’ll keep.</p></div>
-        <div class="step rv d1"><h3>Load it in your browser</h3><p>Open <code>chrome://extensions</code>, <code>edge://extensions</code> or <code>brave://extensions</code>, turn on Developer mode, then click <b>Load unpacked</b>.</p></div>
+        <div class="step rv d1"><h3>Load it in your browser</h3><p>Open <button type="button" class="copy-url" data-copy="chrome://extensions" title="Click to copy"><span>chrome://extensions</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>, <button type="button" class="copy-url" data-copy="edge://extensions" title="Click to copy"><span>edge://extensions</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button> or <button type="button" class="copy-url" data-copy="brave://extensions" title="Click to copy"><span>brave://extensions</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>, turn on Developer mode, then click <b>Load unpacked</b>.</p></div>
         <div class="step rv d2"><h3>Press the blue button</h3><p>Open x.com, click the X Reels icon and press the button. Open a video and start scrolling.</p></div>
       </div>
     </div>
@@ -585,19 +635,50 @@ footer a:hover{color:var(--ink);text-decoration:underline}
     tick();
   }
 
-  // Keycaps light up in sequence, and respond to the real keys
+  // Keycaps light up in sequence, respond to real keys, AND respond to mouse clicks
   const caps = [...document.querySelectorAll('.kc[data-k]')];
+  const legendRows = [...document.querySelectorAll('.legend [data-lg]')];
+  const highlightLegend = (key) => {
+    const match = legendRows.find((r) => (key === ' ' ? r.dataset.lg === ' ' : r.dataset.lg.split(' ').includes(key)));
+    if (!match) return;
+    match.classList.add('hi');
+    setTimeout(() => match.classList.remove('hi'), 420);
+  };
   const press = (el) => { el.classList.add('on'); setTimeout(() => el.classList.remove('on'), 320); };
   const tileCaps = [...document.querySelectorAll('#keys .kc[data-k]')];
-  if (!reduced) {
+  let keyTimer = 0;
+  const startKeyLoop = () => {
+    if (reduced) return;
+    clearInterval(keyTimer);
     const order = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft', ' ', 'm', 'Escape'];
     let i = 0;
-    setInterval(() => { const el = tileCaps.find((c) => c.dataset.k === order[i % order.length]); if (el) press(el); i++; }, 900);
-  }
-  addEventListener('keydown', (e) => caps.filter((c) => c.dataset.k === e.key).forEach(press));
+    keyTimer = setInterval(() => {
+      const k = order[i % order.length];
+      const el = tileCaps.find((c) => c.dataset.k === k);
+      if (el) { press(el); highlightLegend(k); }
+      i++;
+    }, 900);
+  };
+  startKeyLoop();
+  addEventListener('keydown', (e) => { caps.filter((c) => c.dataset.k === e.key).forEach(press); highlightLegend(e.key); });
+  tileCaps.forEach((el) => el.addEventListener('click', () => { press(el); highlightLegend(el.dataset.k); startKeyLoop(); }));
 
-  // Desktop Reels viewer: next video every few seconds, with the ↓ key lighting up
+  // Interactive glowing orb switch in "One glowing switch."
+  const orbBtn = document.getElementById('orbBtn'), waveBox = document.getElementById('waveBox');
+  if (orbBtn && waveBox) {
+    orbBtn.addEventListener('click', () => {
+      const on = orbBtn.classList.toggle('active');
+      orbBtn.setAttribute('aria-pressed', String(on));
+      waveBox.classList.toggle('off', on);
+      if (!on && !reduced) {
+        waveBox.querySelectorAll('i').forEach((r) => { r.style.animation = 'none'; void r.offsetWidth; r.style.animation = ''; });
+      }
+    });
+  }
+
+  // Desktop Reels viewer: next video every few seconds, with clickable ↑/↓ keycaps
   const feed = document.getElementById('feed'), posts = [...feed.children], kDown = document.getElementById('kDown');
+  const deskCaps = [...document.querySelectorAll('#scroll .under .kc[data-k]')];
   let cur = 0, feedTimer = 0;
   const show = (n) => {
     posts[cur].classList.remove('live'); posts[cur].querySelector('video').pause();
@@ -609,21 +690,50 @@ footer a:hover{color:var(--ink);text-decoration:underline}
   const startFeed = () => { if (feedTimer || reduced) return; posts[cur].querySelector('video').play().catch(() => {});
     feedTimer = setInterval(() => { press(kDown); show(cur + 1); }, 4200); };
   const stopFeed = () => { clearInterval(feedTimer); feedTimer = 0; posts[cur].querySelector('video').pause(); };
+  deskCaps.forEach((el) => el.addEventListener('click', () => {
+    press(el);
+    show(cur + (el.dataset.k === 'ArrowUp' ? -1 : 1));
+    if (feedTimer) { clearInterval(feedTimer); feedTimer = setInterval(() => { press(kDown); show(cur + 1); }, 4200); }
+  }));
   new IntersectionObserver(([e]) => e.isIntersecting ? startFeed() : stopFeed(), { threshold: 0.3 }).observe(feed.closest('.desk'));
 
-  // Browser tabs: switch between a normal X tab and the one tab with Reels on
+  // Browser tabs: auto-cycle AND allow clicking any tab directly
   const bw = document.getElementById('bw'), tabs = [...bw.querySelectorAll('.btab')], url = document.querySelector('#bwUrl span'), note = document.getElementById('bwNote');
-  const states = [
+  const tabMeta = [
     { t: 0, reels: false, url: 'x.com/home', note: 'Home / X: normal X' },
     { t: 1, reels: true, url: 'x.com/mohamedhosny/status/1866/video/1', note: 'Video / X: Reels on, icon turns blue' },
     { t: 2, reels: false, url: 'x.com/notifications', note: 'Notifications / X: normal X' },
-    { t: 1, reels: true, url: 'x.com/mohamedhosny/status/1866/video/1', note: 'Video / X: Reels on, icon turns blue' },
   ];
-  let si = 0;
+  const cycle = [0, 1, 2, 1];
+  let si = 0, tabTimer = 0;
   const setTab = (st) => { tabs.forEach((t, i) => t.classList.toggle('act', i === st.t)); bw.classList.toggle('is-reels', st.reels); url.textContent = st.url; note.textContent = st.note; };
-  setTab(states[0]);
-  if (!reduced) setInterval(() => { si = (si + 1) % states.length; setTab(states[si]); }, 2600);
-  else setTab(states[1]);
+  const startTabs = () => {
+    if (reduced) return;
+    clearInterval(tabTimer);
+    tabTimer = setInterval(() => { si = (si + 1) % cycle.length; setTab(tabMeta[cycle[si]]); }, 2600);
+  };
+  tabs.forEach((tab, idx) => tab.addEventListener('click', () => { setTab(tabMeta[idx]); si = cycle.indexOf(idx); startTabs(); }));
+  setTab(tabMeta[0]);
+  if (!reduced) startTabs();
+  else setTab(tabMeta[1]);
+
+  // Click-to-copy for chrome://extensions, edge://extensions, brave://extensions
+  document.querySelectorAll('.copy-url').forEach((b) => {
+    const label = b.querySelector('span');
+    const orig = b.dataset.copy;
+    let t = 0;
+    b.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(orig); }
+      catch {
+        const ta = document.createElement('textarea'); ta.value = orig; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }
+      b.classList.add('copied');
+      label.textContent = 'Copied!';
+      clearTimeout(t);
+      t = setTimeout(() => { b.classList.remove('copied'); label.textContent = orig; }, 1600);
+    });
+  });
 })();
 </script>
 </body>
