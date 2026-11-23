@@ -8,3 +8,4 @@ launch videos/
 .agents/
 .claude/
 skills-lock.json
+!site/reels/*.mp4
