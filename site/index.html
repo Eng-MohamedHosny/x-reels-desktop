@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>X Reels Desktop — Reels with infinite scroll, on your computer</title>
+<meta name="description" content="X's own Reels viewer with infinite scroll, centered in your browser tab. Free and open source for Chrome, Edge and Brave.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="X Reels Desktop">
+<meta property="og:description" content="X's own Reels viewer with infinite scroll, on your computer. Free for Chrome, Edge and Brave.">
+<meta property="og:image" content="https://eng-mohamedhosny.github.io/x-reels-desktop/launch-poster.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1d1d1f; --ink-2:#6e6e73; --ink-3:#86868b; --line:#d2d2d7;
+  --paper:#ffffff; --soft:#f5f5f7; --night:#000000; --night-2:#161617; --night-ink:#f5f5f7; --night-ink-2:#a1a1a6;
+  --blue:#0071e3; --blue-hover:#0077ed; --blue-glow:rgba(0,113,227,.35); --x-blue:#1d9bf0;
+  --radius-l:28px; --radius-m:18px;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter",system-ui,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.25,.1,.25,1); --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.47 var(--font);letter-spacing:-.022em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+img,video,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1080px,100% - 44px);margin-inline:auto}
+.wide{width:min(1280px,100% - 44px);margin-inline:auto}
+
+/* nav: translucent material */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06)}
+.nav-in{height:52px;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:-.01em}
+.brand img{width:26px;height:26px;border-radius:7px}
+.nav-links{display:flex;gap:26px;margin-left:auto;font-size:13px;color:var(--ink-2)}
+.nav-links a{transition:color .2s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav .btn{margin-left:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:980px;font-weight:500;white-space:nowrap;cursor:pointer;border:0;
+  transition:background-color .2s var(--ease),transform .12s var(--ease),box-shadow .25s var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--blue-hover);box-shadow:0 8px 28px var(--blue-glow)}
+.btn-s{font-size:13px;padding:6px 14px}
+.btn-l{font-size:17px;padding:14px 26px}
+.btn-xl{font-size:19px;padding:17px 32px}
+.link{color:var(--blue);font-size:17px;display:inline-flex;align-items:center;gap:4px}
+.link:hover{text-decoration:underline}
+.link svg{width:9px;height:14px}
+.on-dark .link{color:#2997ff}
+:focus-visible{outline:3px solid rgba(0,113,227,.55);outline-offset:3px;border-radius:12px}
+
+/* hero */
+.hero{padding:96px 0 40px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--ink-2);letter-spacing:-.01em}
+.eyebrow img{width:34px;height:34px;border-radius:9px;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+h1{margin:22px auto 0;font-size:clamp(42px,7.4vw,100px);line-height:1.03;letter-spacing:-.045em;font-weight:700}
+h1 .grad{background:linear-gradient(92deg,#1d1d1f 10%,#1d9bf0 55%,#0071e3 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{margin:22px auto 0;max-width:640px;font-size:clamp(19px,2.2vw,24px);line-height:1.33;color:var(--ink-2);letter-spacing:-.018em;font-weight:400}
+.cta-row{margin-top:36px;display:flex;justify-content:center;align-items:center;gap:26px;flex-wrap:wrap}
+.meta{margin-top:18px;font-size:13px;color:var(--ink-3);letter-spacing:-.005em}
+
+/* film */
+.film{padding:40px 0 120px}
+.frame{position:relative;border-radius:var(--radius-l);overflow:hidden;background:#000;aspect-ratio:16/9;
+  box-shadow:0 40px 100px -30px rgba(0,0,0,.45),0 12px 30px -12px rgba(0,0,0,.25);transform-origin:50% 0;will-change:transform}
+.frame video{width:100%;height:100%;object-fit:cover}
+.play{position:absolute;inset:auto 0 0 0;display:flex;justify-content:space-between;align-items:center;padding:22px 24px;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent);color:#fff;font-size:14px;font-weight:500;pointer-events:none;opacity:1;transition:opacity .4s var(--ease)}
+.frame.playing .play{opacity:0}
+.pill{pointer-events:auto;white-space:nowrap;display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.16);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:980px;padding:10px 18px 10px 12px;font:500 15px var(--font);cursor:pointer;transition:background .2s var(--ease),transform .12s var(--ease)}
+.pill:hover{background:rgba(255,255,255,.26)}
+.pill:active{transform:scale(.97)}
+.pill .dot{width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.pill .dot svg{width:11px;height:12px;margin-left:2px}
+
+/* sections */
+section{position:relative}
+.sec{padding:140px 0}
+.dark{background:var(--night);color:var(--night-ink)}
+.soft{background:var(--soft)}
+.kicker{font-size:19px;font-weight:600;color:var(--x-blue);letter-spacing:-.01em;margin:0 0 10px}
+h2{margin:0;font-size:clamp(40px,6vw,80px);line-height:1.04;letter-spacing:-.04em;font-weight:700}
+h2 .mute{color:var(--ink-3)}
+.dark h2 .mute{color:#6e6e73}
+.sub{margin:22px 0 0;max-width:620px;font-size:clamp(19px,2vw,24px);line-height:1.38;color:var(--ink-2);letter-spacing:-.016em}
+.dark .sub{color:var(--night-ink-2)}
+.center{text-align:center}.center .sub{margin-inline:auto}
+
+/* infinite scroll visual */
+.endless{margin-top:80px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:56px}
+.endless .copy{display:grid;gap:34px}
+.stat b{display:block;font-size:clamp(34px,4vw,56px);line-height:1;letter-spacing:-.04em;font-weight:700;color:#fff}
+.stat span{display:block;margin-top:8px;font-size:15px;color:var(--night-ink-2)}
+.phone{width:300px;height:620px;border-radius:52px;padding:12px;background:linear-gradient(145deg,#3a3a3c,#1c1c1e 40%,#2c2c2e);box-shadow:0 0 0 1px #48484a inset,0 50px 120px -30px rgba(29,155,240,.45)}
+.screen{position:relative;width:100%;height:100%;border-radius:41px;overflow:hidden;background:#000}
+.island{position:absolute;top:12px;left:50%;translate:-50% 0;width:92px;height:27px;border-radius:20px;background:#000;z-index:3}
+.reel-track{position:absolute;inset:0;display:flex;flex-direction:column;animation:feed 14s cubic-bezier(.7,0,.2,1) infinite}
+.reel{flex:0 0 100%;position:relative;overflow:hidden}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 45%)}
+.r1{background:radial-gradient(circle at 50% 62%,#ffd27a 0 16%,transparent 17%),linear-gradient(#ff8a4c,#ff5e62 55%,#2b2a6b 56%,#141432)}
+.r2{background:radial-gradient(circle at 30% 30%,#7cc8ff,transparent 45%),radial-gradient(circle at 70% 70%,#a855f7,transparent 50%),#0b1020}
+.r3{background:linear-gradient(160deg,#0f2027,#203a43,#2c5364)}
+.r3::before{content:"";position:absolute;left:-10%;right:-10%;bottom:28%;height:38%;background:repeating-linear-gradient(90deg,#11c5a7 0 22px,#0f9f88 22px 30px,transparent 30px 44px);opacity:.75;clip-path:polygon(0 100%,8% 40%,16% 70%,26% 20%,36% 60%,48% 10%,58% 55%,70% 25%,82% 65%,92% 35%,100% 100%)}
+.r4{background:radial-gradient(circle at 50% 40%,#ffd200 0 12%,transparent 13%),linear-gradient(#1d1d1f,#000)}
+.reel .cap{position:absolute;left:18px;right:56px;bottom:30px;z-index:2;font-size:13px;line-height:1.35;color:#fff}
+.reel .cap b{display:flex;align-items:center;gap:8px;font-size:14px;margin-bottom:6px}
+.reel .cap i{width:24px;height:24px;border-radius:50%;background:#fff3;display:inline-block}
+.rail{position:absolute;right:12px;bottom:34px;z-index:2;display:grid;gap:16px}
+.rail span{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.18)}
+@keyframes feed{0%,18%{transform:translateY(0)}25%,43%{transform:translateY(-100%)}50%,68%{transform:translateY(-200%)}75%,93%{transform:translateY(-300%)}100%{transform:translateY(-300%)}}
+
+/* bento */
+.bento{margin-top:72px;display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.tile{background:var(--paper);border-radius:var(--radius-l);padding:40px;overflow:hidden;position:relative;min-height:320px;display:flex;flex-direction:column}
+.tile h3{margin:0;font-size:28px;line-height:1.14;letter-spacing:-.03em;font-weight:700}
+.tile p{margin:12px 0 0;color:var(--ink-2);font-size:17px;line-height:1.45;max-width:36ch}
+.t-wide{grid-column:span 4}.t-narrow{grid-column:span 2}.t-half{grid-column:span 3}
+.t-dark{background:#000;color:#fff}.t-dark p{color:var(--night-ink-2)}
+
+/* keycaps */
+.keys{margin-top:auto;padding-top:34px;display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap}
+.cluster{display:grid;grid-template-columns:repeat(3,58px);grid-auto-rows:58px;gap:8px}
+.kc{display:grid;place-items:center;border-radius:12px;font:600 20px var(--font);color:#1d1d1f;background:linear-gradient(180deg,#fff,#f0f0f2);
+  box-shadow:0 1px 0 #fff inset,0 0 0 1px #d2d2d7,0 3px 0 #c7c7cc,0 8px 16px -6px rgba(0,0,0,.25);transition:transform .12s var(--ease),box-shadow .12s var(--ease),color .2s}
+.kc.ghost{visibility:hidden}
+.kc.wide{width:180px;height:58px;font-size:15px}
+.kc.on{transform:translateY(2px);color:var(--blue);box-shadow:0 1px 0 #fff inset,0 0 0 1px var(--blue),0 1px 0 #c7c7cc,0 0 22px rgba(0,113,227,.35)}
+.legend{display:grid;gap:8px;font-size:15px;color:var(--ink-2)}
+.legend b{color:var(--ink);font-weight:600;display:inline-block;min-width:66px}
+
+/* wave tile */
+.wave{position:relative;margin-top:auto;height:170px;display:grid;place-items:center}
+.wave i{position:absolute;width:60px;height:60px;border-radius:50%;border:2px solid rgba(160,215,255,.9);
+  box-shadow:-3px 0 0 -1px rgba(255,40,110,.7),3px 0 0 -1px rgba(0,230,255,.8),0 0 22px rgba(29,155,240,.7);animation:ring 2.6s var(--ease-out) infinite;opacity:0}
+.wave i:nth-child(2){animation-delay:.25s}.wave i:nth-child(3){animation-delay:.5s}
+.orb{width:74px;height:74px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#7cc8ff,#1d9bf0 40%,#0b3d91 80%);box-shadow:0 14px 40px -6px rgba(29,155,240,.8),inset 0 2px 6px rgba(255,255,255,.4);display:grid;place-items:center;position:relative;z-index:2}
+.orb svg{width:24px;margin-left:4px}
+@keyframes ring{0%{transform:scale(.6);opacity:0}15%{opacity:1}100%{transform:scale(4.2);opacity:0}}
+
+/* tabs tile */
+.tabs{margin-top:auto;padding-top:28px;display:grid;gap:10px}
+.tabrow{display:flex;align-items:center;gap:12px;border-radius:14px;padding:12px 14px;background:var(--soft);font-size:14px;color:var(--ink-2)}
+.tabrow.on{background:#e8f3fe;color:var(--ink);box-shadow:0 0 0 1.5px var(--blue) inset}
+.tabrow .fav{width:18px;height:18px;border-radius:5px;background:#000;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.tabrow em{margin-left:auto;font-style:normal;font-size:12px;font-weight:600;color:var(--blue)}
+
+/* privacy tile */
+.shield{margin-top:auto;padding-top:24px;display:flex;gap:14px;flex-wrap:wrap}
+.chip{font-size:14px;font-weight:500;padding:9px 14px;border-radius:980px;background:#1c1c1e;color:#f5f5f7;border:1px solid #2c2c2e}
+
+/* browsers */
+.browsers{margin-top:64px;display:flex;justify-content:center;gap:clamp(28px,7vw,96px);flex-wrap:wrap}
+.br{display:grid;justify-items:center;gap:14px}
+.br img{width:92px;height:92px;filter:drop-shadow(0 14px 24px rgba(0,0,0,.16));transition:transform .5s var(--ease-out)}
+.br:hover img{transform:translateY(-6px) scale(1.04)}
+.br b{font-size:21px;letter-spacing:-.02em}
+.ok{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#1a7f37;background:#e7f6ec;padding:5px 12px;border-radius:980px}
+.ok svg{width:13px;height:13px}
+
+/* install */
+.steps{margin-top:72px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
+.step{background:var(--paper);border-radius:var(--radius-l);padding:36px 32px 40px;counter-increment:s}
+.step::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;font-weight:600;font-size:17px;margin-bottom:26px}
+.step h3{margin:0;font-size:22px;letter-spacing:-.025em;line-height:1.2}
+.step p{margin:10px 0 0;color:var(--ink-2);font-size:16px}
+code{font:500 14px ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:#e8e8ed;padding:2px 7px;border-radius:7px;color:var(--ink);letter-spacing:0}
+
+/* big cta */
+.final{padding:160px 0;text-align:center}
+.final h2{font-size:clamp(48px,8vw,112px)}
+.final .icon{width:120px;height:120px;margin:0 auto 34px;border-radius:27px;box-shadow:0 30px 60px -20px rgba(29,155,240,.55),0 0 0 1px rgba(255,255,255,.08)}
+.final .cta-row{margin-top:44px}
+.final .meta{color:#6e6e73}
+
+/* creator */
+.creator{padding:120px 0;border-top:1px solid #e8e8ed}
+.card{display:flex;align-items:center;gap:44px;max-width:860px;margin-inline:auto}
+.avatar{flex:none;width:200px;height:200px;border-radius:50%;overflow:hidden;box-shadow:0 30px 60px -24px rgba(0,0,0,.35),0 0 0 6px #fff,0 0 0 7px #e8e8ed}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.card small{display:block;font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.card h3{margin:8px 0 0;font-size:clamp(32px,4vw,48px);line-height:1.08;letter-spacing:-.04em}
+.card p{margin:14px 0 0;color:var(--ink-2);font-size:19px;max-width:44ch}
+.heart{color:#ff375f;display:inline-block;animation:beat 1.6s var(--ease) infinite;transform-origin:center}
+@keyframes beat{0%,60%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+.socials{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+.socials a{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;padding:9px 16px;border-radius:980px;background:var(--soft);transition:background .2s var(--ease)}
+.socials a:hover{background:#e8e8ed}
+.socials svg{width:17px;height:17px}
+
+footer{background:var(--soft);color:var(--ink-3);font-size:12px;line-height:1.6;padding:26px 0 34px}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+footer a:hover{color:var(--ink);text-decoration:underline}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease-out),transform 1.1s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+@media (max-width:900px){
+  .nav-links{display:none}.nav .btn{margin-left:auto}
+  .hero{padding-top:64px}
+  .sec{padding:96px 0}
+  .endless{grid-template-columns:1fr;justify-items:center;text-align:center;gap:48px}
+  .endless .copy{grid-auto-flow:column;grid-auto-columns:1fr;gap:18px;width:100%}
+  .bento{grid-template-columns:1fr}.t-wide,.t-narrow,.t-half{grid-column:auto}
+  .tile{padding:32px 26px;min-height:0}
+  .steps{grid-template-columns:1fr}
+  .card{flex-direction:column;text-align:center;gap:28px}.card p{margin-inline:auto}.socials{justify-content:center}
+  .frame{border-radius:18px}
+  .final{padding:110px 0}
+}
+@media (max-width:480px){
+  .phone{width:260px;height:540px;border-radius:46px}.screen{border-radius:36px}
+  .cluster{grid-template-columns:repeat(3,50px);grid-auto-rows:50px}.kc.wide{width:150px;height:50px}
+  .play{padding:14px}.play>span{display:none}
+  .pill{font-size:14px;padding:8px 14px 8px 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .reel-track,.wave i,.heart{animation:none}
+  .frame{transform:none!important}
+}
+@media (prefers-reduced-transparency:reduce){.nav{background:#fff;backdrop-filter:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><img src="icon.svg" alt="">X Reels Desktop</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#film">Film</a><a href="#scroll">Infinite scroll</a><a href="#features">Features</a><a href="#install">Install</a>
+    </nav>
+    <a class="btn btn-blue btn-s" href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases/latest/download/x-reels-desktop-1.0.0.zip">Download</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow rv"><img src="icon.svg" alt="">X Reels Desktop</div>
+      <h1 class="rv d1">Reels.<br><span class="grad">Now on your desktop.</span></h1>
+      <p class="lede rv d2">X’s own Reels viewer with infinite scroll, full screen and centered in your browser tab. One click to turn it on.</p>
+      <div class="cta-row rv d3">
+        <a class="btn btn-blue btn-xl" href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases/latest/download/x-reels-desktop-1.0.0.zip">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>
+          Download free
+        </a>
+        <a class="link" href="#film">Watch the film <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <p class="meta rv d3">Version 1.0 · Chrome, Edge and Brave · Free and open source</p>
+    </div>
+  </section>
+
+  <section class="film" id="film">
+    <div class="wide">
+      <div class="frame rv" id="frame">
+        <video id="vid" src="launch.mp4" poster="launch-poster.jpg" playsinline muted loop preload="metadata"></video>
+        <div class="play">
+          <button class="pill" id="playBtn" type="button"><span class="dot"><svg viewBox="0 0 11 12"><path d="M1 1l9 5-9 5z" fill="#000"/></svg></span>Watch the launch film</button>
+          <span class="len">1:20 · sound on</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark on-dark" id="scroll">
+    <div class="wrap">
+      <div class="center">
+        <p class="kicker rv">Infinite scroll</p>
+        <h2 class="rv d1">It never ends.<br><span class="mute">That’s the point.</span></h2>
+        <p class="sub rv d2">Open any video and keep scrolling. The next one is always there, picked by X, exactly like the Reels feed on your phone.</p>
+      </div>
+      <div class="endless">
+        <div class="copy">
+          <div class="stat rv"><b>Endless</b><span>Videos, one after another</span></div>
+          <div class="stat rv d1"><b>1 click</b><span>To turn Reels on in a tab</span></div>
+        </div>
+        <div class="phone rv d1" aria-hidden="true">
+          <div class="screen">
+            <div class="island"></div>
+            <div class="reel-track">
+              <div class="reel r1"><div class="rail"><span></span><span></span><span></span></div><div class="cap"><b><i></i>Wander Clips</b>Golden hour hits different on the coast</div></div>
+              <div class="reel r2"><div class="rail"><span></span><span></span><span></span></div><div class="cap"><b><i></i>Night Owl</b>Tokyo after midnight</div></div>
+              <div class="reel r3"><div class="rail"><span></span><span></span><span></span></div><div class="cap"><b><i></i>Studio Lens</b>Northern lights, no filter</div></div>
+              <div class="reel r1"><div class="rail"><span></span><span></span><span></span></div><div class="cap"><b><i></i>Wander Clips</b>Golden hour hits different on the coast</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="copy">
+          <div class="stat rv d2"><b>Centered</b><span>Like a phone on your desk</span></div>
+          <div class="stat rv d3"><b>Real X</b><span>X’s own player and picks</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec soft" id="features">
+    <div class="wrap">
+      <div class="center">
+        <p class="kicker rv">Designed for your desk</p>
+        <h2 class="rv d1">Everything you love.<br><span class="mute">On a bigger screen.</span></h2>
+      </div>
+      <div class="bento">
+        <article class="tile t-wide rv">
+          <h3>Your keyboard is the remote.</h3>
+          <p>Scroll with the mouse wheel, or use the keys. Every control is one press away.</p>
+          <div class="keys" id="keys">
+            <div class="cluster" aria-hidden="true">
+              <span class="kc ghost"></span><span class="kc" data-k="ArrowUp">↑</span><span class="kc ghost"></span>
+              <span class="kc" data-k="ArrowLeft">←</span><span class="kc" data-k="ArrowDown">↓</span><span class="kc" data-k="ArrowRight">→</span>
+            </div>
+            <div style="display:grid;gap:8px" aria-hidden="true">
+              <span class="kc wide" data-k=" ">Space</span>
+              <div style="display:flex;gap:8px"><span class="kc" style="width:58px;height:58px" data-k="m">M</span><span class="kc" style="width:114px;height:58px;font-size:15px" data-k="Escape">Esc</span></div>
+            </div>
+            <div class="legend">
+              <span><b>↑ ↓</b>Previous / next video</span>
+              <span><b>← →</b>Back / forward 5 seconds</span>
+              <span><b>Space</b>Play / pause</span>
+              <span><b>M</b>Mute</span>
+              <span><b>Esc</b>Close the video</span>
+            </div>
+          </div>
+        </article>
+        <article class="tile t-narrow t-dark rv d1">
+          <h3>One glowing switch.</h3>
+          <p>Press it and a soft blue wave turns your tab into Reels.</p>
+          <div class="wave" aria-hidden="true"><i></i><i></i><i></i><div class="orb"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z" fill="#fff"/></svg></div></div>
+        </article>
+        <article class="tile t-half rv">
+          <h3>Only the tab you choose.</h3>
+          <p>Reels turns on in one tab. Your other X tabs stay exactly as they are.</p>
+          <div class="tabs" aria-hidden="true">
+            <div class="tabrow"><span class="fav">𝕏</span>Home / X</div>
+            <div class="tabrow on"><span class="fav">𝕏</span>Video / X<em>Reels on</em></div>
+            <div class="tabrow"><span class="fav">𝕏</span>Notifications / X</div>
+          </div>
+        </article>
+        <article class="tile t-half t-dark rv d1">
+          <h3>Private by design.</h3>
+          <p>No server, no account, no tracking. Everything stays in your browser.</p>
+          <div class="shield"><span class="chip">No account</span><span class="chip">No tracking</span><span class="chip">No debugger banner</span><span class="chip">Open source</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="browsers">
+    <div class="wrap center">
+      <p class="kicker rv">Works where you work</p>
+      <h2 class="rv d1">Your browser. <span class="mute">Ready.</span></h2>
+      <div class="browsers">
+        <div class="br rv"><img src="browsers/chrome.png" alt=""><b>Chrome</b><span class="ok"><svg viewBox="0 0 14 14"><path d="M2 7.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Supported</span></div>
+        <div class="br rv d1"><img src="browsers/edge.png" alt=""><b>Edge</b><span class="ok"><svg viewBox="0 0 14 14"><path d="M2 7.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Supported</span></div>
+        <div class="br rv d2"><img src="browsers/brave.png" alt=""><b>Brave</b><span class="ok"><svg viewBox="0 0 14 14"><path d="M2 7.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Supported</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec soft" id="install">
+    <div class="wrap">
+      <div class="center">
+        <p class="kicker rv">Install in a minute</p>
+        <h2 class="rv d1">Three steps. <span class="mute">That’s it.</span></h2>
+      </div>
+      <div class="steps">
+        <div class="step rv"><h3>Download and unzip</h3><p>Get <b>x-reels-desktop-1.0.0.zip</b> and unzip it into a folder you’ll keep.</p></div>
+        <div class="step rv d1"><h3>Load it in your browser</h3><p>Open <code>chrome://extensions</code>, <code>edge://extensions</code> or <code>brave://extensions</code>, turn on Developer mode, then click <b>Load unpacked</b>.</p></div>
+        <div class="step rv d2"><h3>Press the blue button</h3><p>Open x.com, click the X Reels icon and press the button. Open a video and start scrolling.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark final on-dark">
+    <div class="wrap">
+      <img class="icon rv" src="icon.svg" alt="X Reels Desktop icon">
+      <h2 class="rv d1">Endless Reels.<br><span class="mute">Free.</span></h2>
+      <div class="cta-row rv d2">
+        <a class="btn btn-blue btn-xl" href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases/latest/download/x-reels-desktop-1.0.0.zip">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>
+          Download X Reels Desktop
+        </a>
+        <a class="link" href="https://github.com/Eng-MohamedHosny/x-reels-desktop">View on GitHub <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <p class="meta rv d3">Version 1.0 · 48 KB · MIT license</p>
+    </div>
+  </section>
+
+  <section class="creator" id="creator">
+    <div class="wrap">
+      <div class="card">
+        <div class="avatar rv"><img src="mohamed.jpg" alt="Eng. Mohamed Hosny" width="200" height="200" loading="lazy"></div>
+        <div class="rv d1">
+          <small>Created by</small>
+          <h3>Eng. Mohamed Hosny</h3>
+          <p>Made with <span class="heart" aria-label="love">♥</span> by Mohamed Hosny, for everyone who wanted the phone Reels experience on a real screen.</p>
+          <div class="socials">
+            <a href="https://github.com/Eng-MohamedHosny"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>Eng-MohamedHosny</a>
+            <a href="https://github.com/Eng-MohamedHosny/x-reels-desktop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21.1l1.4-7L2 9.3l7-.8z"/></svg>Star the project</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Mohamed Hosny · MIT license · X Reels Desktop is an independent project, not made by or connected to X Corp.</span>
+    <span><a href="https://github.com/Eng-MohamedHosny/x-reels-desktop">GitHub</a> · <a href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases">Releases</a> · <a href="https://github.com/Eng-MohamedHosny/x-reels-desktop/issues">Report a bug</a></span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  document.querySelectorAll('.rv').forEach((el) => io.observe(el));
+
+  // Film: muted preview loop when visible, full play with sound on click
+  const frame = document.getElementById('frame'), vid = document.getElementById('vid'), btn = document.getElementById('playBtn');
+  let started = false;
+  if (!reduced) new IntersectionObserver(([e]) => { if (started) return; e.isIntersecting ? vid.play().catch(() => {}) : vid.pause(); }, { threshold: 0.35 }).observe(frame);
+  btn.addEventListener('click', () => {
+    started = true; vid.muted = false; vid.loop = false; vid.currentTime = 0; vid.controls = true;
+    vid.play(); frame.classList.add('playing');
+  });
+
+  // Film frame grows to full size as it scrolls into view
+  if (!reduced) {
+    let raf = 0;
+    const tick = () => {
+      raf = 0;
+      const r = frame.getBoundingClientRect(), vh = innerHeight;
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.9)));
+      frame.style.transform = `scale(${0.88 + 0.12 * p})`;
+    };
+    addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tick); }, { passive: true });
+    tick();
+  }
+
+  // Keycaps light up in sequence, and respond to the real keys
+  const caps = [...document.querySelectorAll('#keys .kc[data-k]')];
+  const press = (el) => { el.classList.add('on'); setTimeout(() => el.classList.remove('on'), 260); };
+  if (!reduced) {
+    const order = ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowRight', ' ', 'm'];
+    let i = 0;
+    setInterval(() => { const el = caps.find((c) => c.dataset.k === order[i % order.length]); if (el) press(el); i++; }, 900);
+  }
+  addEventListener('keydown', (e) => { const el = caps.find((c) => c.dataset.k === e.key); if (el) press(el); });
+})();
+</script>
+</body>
+</html>

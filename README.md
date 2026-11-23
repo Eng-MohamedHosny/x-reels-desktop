@@ -18,6 +18,7 @@
 </p>
 
 <p align="center">
+  <a href="https://eng-mohamedhosny.github.io/x-reels-desktop/"><b>🌐 Website</b></a> &nbsp;·&nbsp;
   <a href="../../releases/latest"><b>⬇️ Download free</b></a> &nbsp;·&nbsp;
   <a href="#see-it-in-action"><b>▶️ Watch the launch film</b></a> &nbsp;·&nbsp;
   <a href="#install"><b>Install in 1 minute</b></a>

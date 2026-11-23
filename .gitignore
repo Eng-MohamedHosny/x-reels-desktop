@@ -4,3 +4,7 @@ node_modules/
 *.zip
 launch videos/
 *.mp4
+!site/launch.mp4
+.agents/
+.claude/
+skills-lock.json
