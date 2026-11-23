@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="icons/icon.svg" alt="X Reels Desktop icon" width="128" height="128">
+  <img src="docs/images/badge.png" alt="X Reels Desktop" width="360">
 </p>
-
-<h1 align="center">X Reels Desktop</h1>
 
 <p align="center">
   <b>X's Reels viewer with infinite scroll, on your computer.</b><br>
@@ -21,7 +19,7 @@
 
 <p align="center">
   <a href="../../releases/latest"><b>⬇️ Download free</b></a> &nbsp;·&nbsp;
-  <a href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases/download/v1.0.0/x-reels-launch.mp4"><b>▶️ Watch the launch film</b></a> &nbsp;·&nbsp;
+  <a href="#see-it-in-action"><b>▶️ Watch the launch film</b></a> &nbsp;·&nbsp;
   <a href="#install"><b>Install in 1 minute</b></a>
 </p>
 
@@ -39,12 +37,9 @@ On the X phone app, tapping a video opens a full screen Reels viewer with infini
   <img src="docs/images/demo.gif" alt="Turning on X Reels Desktop and scrolling through videos" width="100%">
 </p>
 
-<p align="center">
-  <a href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases/download/v1.0.0/x-reels-launch.mp4">
-    <img src="docs/images/launch-film.png" alt="Watch the X Reels Desktop launch film (1:20, sound on)" width="100%">
-  </a>
-  <br><sub>Click to watch the full 1:20 launch film.</sub>
-</p>
+https://github.com/user-attachments/assets/d2e7279d-00b4-4f79-984e-c0bb236b4a14
+
+<p align="center"><sub>Can't play it here? <a href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases/download/v1.0.0/x-reels-launch.mp4">Download the launch film</a></sub></p>
 
 ## What you get
 
