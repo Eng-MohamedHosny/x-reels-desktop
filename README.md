@@ -1,29 +1,43 @@
 <p align="center">
-  <img src="docs/images/banner.png" alt="X Reels Desktop" width="100%">
+  <img src="docs/images/hero.png" alt="X Reels Desktop: phone Reels, on your desktop" width="100%">
 </p>
 
 <p align="center">
-  <b>Watch X videos the way you do on your phone: full screen, one swipe at a time, right on your computer.</b>
+  <a href="../../releases/latest"><img alt="Download" src="https://img.shields.io/github/v/release/Eng-MohamedHosny/x-reels-desktop?style=for-the-badge&color=FFD200&labelColor=0B0B0B&label=download"></a>
+  <img alt="Chrome" src="https://img.shields.io/badge/Chrome-supported-0B0B0B?style=for-the-badge&logo=googlechrome&logoColor=FFD200">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-0B0B0B?style=for-the-badge">
+  <a href="../../actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/Eng-MohamedHosny/x-reels-desktop/tests.yml?style=for-the-badge&label=tests&labelColor=0B0B0B"></a>
 </p>
 
 <p align="center">
-  <a href="../../releases/latest"><img alt="Download" src="https://img.shields.io/github/v/release/Eng-MohamedHosny/x-reels-desktop?color=1d9bf0&label=download"></a>
-  <img alt="Chrome" src="https://img.shields.io/badge/Chrome-supported-1d9bf0?logo=googlechrome&logoColor=white">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-555">
+  <a href="../../releases/latest"><b>⬇️ Download for Chrome</b></a> &nbsp;·&nbsp;
+  <a href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases/download/v1.0.0/x-reels-launch.mp4"><b>▶️ Watch the launch film</b></a> &nbsp;·&nbsp;
+  <a href="#install"><b>Install in 1 minute</b></a>
 </p>
 
 ---
 
 ## 🤳 Why X Reels Desktop?
 
-On the X phone app, tapping a video opens a full screen player. You swipe up, the next video plays, and X keeps suggesting more. It is the easiest way to watch videos on X.
-
-On a computer you don't get that. Videos play small inside the timeline, and you have to scroll past posts to find the next one.
+On the X phone app, tapping a video opens a full screen player. You swipe up, the next video plays, and X keeps suggesting more. On a computer you don't get that: videos play small inside the timeline, and you scroll past posts to find the next one.
 
 **X Reels Desktop brings the phone experience to your computer.** One click, and your X tab switches to the same Reels viewer the phone uses, centered on your screen. Swipe with the mouse wheel or the keyboard, and X keeps the videos coming.
 
 <p align="center">
-  <img src="docs/images/demo.gif" alt="X Reels Desktop in action" width="760">
+  <img src="docs/images/before-after.png" alt="Before: a video is just a post in the timeline. With X Reels Desktop: the phone Reels viewer, one swipe at a time." width="100%">
+</p>
+
+## ▶️ See it in action
+
+<p align="center">
+  <img src="docs/images/demo.gif" alt="Turning on X Reels Desktop and swiping through videos" width="100%">
+</p>
+
+<p align="center">
+  <a href="https://github.com/Eng-MohamedHosny/x-reels-desktop/releases/download/v1.0.0/x-reels-launch.mp4">
+    <img src="docs/images/launch-film.png" alt="Watch the X Reels Desktop launch film (1:20, sound on)" width="100%">
+  </a>
+  <br><sub>Click to watch the full 1:20 launch film.</sub>
 </p>
 
 ## What you get
@@ -43,7 +57,7 @@ It is not on the Chrome Web Store yet, so you add it yourself. It takes a minute
   <img src="docs/images/install.png" alt="Three steps to install" width="100%">
 </p>
 
-1. Download **`x-reels-desktop-1.0.0.zip`** from the [latest release](../../releases/latest) and unzip it into a folder you will keep.
+1. Download **`x-reels-desktop-1.0.0.zip`** from the [latest release](../../releases/latest) and unzip it. You get a folder called `x-reels-desktop`. Keep it somewhere safe.
 2. In Chrome, open `chrome://extensions`, turn on **Developer mode** (top right), click **Load unpacked**, and choose the unzipped folder.
 3. Pin the X Reels icon to your toolbar so it is always one click away.
 
@@ -135,8 +149,11 @@ No `chrome.debugger`, no remote code, and no change to other tabs.
 
 ```bash
 node --test tests/background.test.cjs tests/controls.test.cjs
+./scripts/build-zip.sh   # builds x-reels-desktop-<version>.zip with only the extension files
 xvfb-run -a -s "-screen 0 1920x1080x24" node tests/e2e/mock-x.e2e.cjs   # needs Playwright + Chromium
 ```
+
+**Releasing.** Bump `version` in `manifest.json`, add `.github/RELEASE_NOTES_v<version>.md`, then push a tag (`git tag v1.0.1 && git push origin v1.0.1`). The Release workflow runs the tests, builds the zip with `scripts/build-zip.sh` and publishes the GitHub release.
 
 </details>
 
@@ -144,6 +161,8 @@ xvfb-run -a -s "-screen 0 1920x1080x24" node tests/e2e/mock-x.e2e.cjs   # needs 
 
 [MIT](LICENSE) © 2026 Mohamed Hosny
 
----
+<p align="center">
+  <a href="../../releases/latest"><img src="docs/images/cta.png" alt="Ready to swipe? Download X Reels Desktop for Chrome" width="100%"></a>
+</p>
 
-<p align="center">Made with 💙 by <b>Mohamed Hosny</b></p>
+<p align="center">Made with 💛 by <b>Mohamed Hosny</b></p>

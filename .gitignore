@@ -2,3 +2,5 @@
 .freebuff/
 node_modules/
 *.zip
+launch videos/
+*.mp4

@@ -1,0 +1,39 @@
+name: Release
+
+# Push a tag like v1.0.0 and GitHub builds the zip and publishes the release.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Unit tests
+        run: node --test tests/background.test.cjs tests/controls.test.cjs
+      - name: Check tag matches manifest version
+        run: |
+          V=$(node -p "require('./manifest.json').version")
+          test "v$V" = "${GITHUB_REF_NAME}" || { echo "Tag ${GITHUB_REF_NAME} does not match manifest $V"; exit 1; }
+      - name: Build zip
+        id: zip
+        run: echo "file=$(./scripts/build-zip.sh)" >> "$GITHUB_OUTPUT"
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NOTES=".github/RELEASE_NOTES_${GITHUB_REF_NAME}.md"
+          [ -f "$NOTES" ] || NOTES=/dev/null
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "${{ steps.zip.outputs.file }}" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "${{ steps.zip.outputs.file }}" \
+              --title "X Reels Desktop ${GITHUB_REF_NAME#v}" --notes-file "$NOTES" --latest
+          fi
